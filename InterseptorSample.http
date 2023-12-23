@@ -1,0 +1,6 @@
+@InterseptorSample_HostAddress = http://localhost:5111
+
+GET {{InterseptorSample_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
