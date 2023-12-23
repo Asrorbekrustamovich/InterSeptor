@@ -17,7 +17,7 @@ namespace InterseptorSample
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddHttpContextAccessor();
             // Register AuditLogInterceptor
             builder.Services.AddScoped<ISaveChangesInterceptor, AuditLogInterceptor>();
             // Register CrudService

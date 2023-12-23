@@ -26,6 +26,12 @@ namespace InterseptorSample.Controllers
             var result=_crudService.Update(cars);
             return Ok(result);
         }
+        [HttpDelete]
+        public IActionResult Delete(Cars cars)
+        {
+            var result = _crudService.Delete(cars);
+            return Ok(result);
+        }
 
     }
 }

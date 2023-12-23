@@ -46,7 +46,7 @@ namespace InterseptorSample.ServiceLog
                         UpdatedValueAsJson = entry.OriginalValues.ToObject().ToString(),
                         UserName = "Asror"
                     };
-
+                    ///IHttpContextAccessor _httpContextAccessor; can use for get username
                     auditLogsToAdd.Add(auditlog);
                 }
             }
