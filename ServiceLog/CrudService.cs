@@ -22,7 +22,6 @@ namespace InterseptorSample.ServiceLog
             _context.SaveChanges(); 
             return entity;
         }
-
         public bool Update(Cars entity)
         {
             _context.Cars.Update(entity);

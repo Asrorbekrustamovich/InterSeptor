@@ -7,32 +7,30 @@ namespace InterseptorSample.ServiceLog
 {
     public class AuditLogInterceptor : SaveChangesInterceptor
     {
-        private readonly Mydbcontext _context;
-
-        public AuditLogInterceptor(Mydbcontext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
 
         public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
         {
             Console.WriteLine("SavingChanges Interceptor Executed");
-            UpdateEntities(_context);
+            UpdateEntities(eventData.Context);
             return base.SavingChanges(eventData, result);
         }
+
 
         public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
         {
             Console.WriteLine("SavingChangesAsync Interceptor Executed");
-            UpdateEntitiesAsync(_context);
+            await UpdateEntitiesAsync(eventData.Context);
             return await base.SavingChangesAsync(eventData, result, cancellationToken);
         }
 
 
-        private void UpdateEntities(Mydbcontext context)
+
+        private void UpdateEntities(DbContext context)
         {
             if (context == null)
                 return;
+
+            var auditLogsToAdd = new List<AuditLog>();
 
             foreach (var entry in context.ChangeTracker.Entries())
             {
@@ -49,15 +47,21 @@ namespace InterseptorSample.ServiceLog
                         UserName = "Asror"
                     };
 
-                    context.AuditLogs.Add(auditlog);
+                    auditLogsToAdd.Add(auditlog);
                 }
             }
+
+            // Add the audit logs after the loop
+            context.AddRange(auditLogsToAdd);
         }
 
-        private async ValueTask UpdateEntitiesAsync(Mydbcontext context)
+
+        private async ValueTask UpdateEntitiesAsync(DbContext context)
         {
             if (context == null)
                 return;
+
+            var auditLogsToAdd = new List<AuditLog>();
 
             foreach (var entry in context.ChangeTracker.Entries())
             {
@@ -74,9 +78,12 @@ namespace InterseptorSample.ServiceLog
                         UserName = "Asror"
                     };
 
-                    context.AuditLogs.Add(auditlog);
+                    auditLogsToAdd.Add(auditlog);
                 }
             }
+
+            // Add the audit logs after the loop
+            context.AddRange(auditLogsToAdd);
         }
     }
 }

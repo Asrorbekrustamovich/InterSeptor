@@ -2,7 +2,7 @@
 
 namespace InterseptorSample.Models
 {
-    public class AuditLog
+    public class AuditLog: BaseEntity
     {
         public int Id { get; set; }
         public string EntityName { get; set; }
