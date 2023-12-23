@@ -20,6 +20,12 @@ namespace InterseptorSample.Controllers
              var result=_crudService.Create(cars);
             return Ok(result);
         }
+        [HttpPut]
+        public IActionResult Update(Cars cars)
+        {
+            var result=_crudService.Update(cars);
+            return Ok(result);
+        }
 
     }
 }

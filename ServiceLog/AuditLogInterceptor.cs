@@ -42,7 +42,7 @@ namespace InterseptorSample.ServiceLog
                     {
                         EntityName = entry.Entity.GetType().Name,
                         Date = DateTime.Now,
-                        OperationType = entry.State,
+                        OperationType = entry.State.ToString(),
                         UpdatedValueAsJson = entry.OriginalValues.ToObject().ToString(),
                         UserName = "Asror"
                     };
@@ -73,7 +73,7 @@ namespace InterseptorSample.ServiceLog
                     {
                         EntityName = entry.Entity.GetType().Name,
                         Date = DateTime.Now,
-                        OperationType = entry.State,
+                        OperationType = entry.State.ToString(),
                         UpdatedValueAsJson = entry.OriginalValues.ToObject().ToString(),
                         UserName = "Asror"
                     };
